@@ -13,5 +13,5 @@ You'll need to first create a Datadog account, and then get your API key from th
 You'll then be able to start the example project with a:
 
 ```bash
-DD_API_KEY=<YOUR_API_KEY> docker-compose up
+DD_API_KEY=<YOUR_API_KEY> STEP=1 docker-compose up
 ```
