@@ -1,59 +1,31 @@
-import asyncio
-import logging
+import blinker as _
+import requests
 
-from aiohttp import web
+from flask import Flask, Response
+from flask import jsonify
+from flask import request as flask_request
 
 from ddtrace import tracer
-from ddtrace.contrib.aiohttp import trace_app
+from ddtrace.contrib.flask import TraceMiddleware
 
 from thoughts import thoughts
-
-
-# Logger configuration
-logger = logging.getLogger(__name__)
-
+from time import sleep
 
 # Tracer configuration
 tracer.configure(hostname='agent')
 
+app = Flask('api')
+traced_app = TraceMiddleware(app, tracer, service='thinker-microservice')
 
 @tracer.wrap(name='think')
-async def think(subject):
+def think(subject):
     tracer.current_span().set_tag('subject', subject)
 
-    await asyncio.sleep(0.5)
+    sleep(0.5)
     return thoughts[subject]
 
-
-async def handle(request):
-    response = {}
-    for subject in request.query.getall('subject', []):
-        try:
-            thought = await think(subject)
-            response[subject] = {
-                'error': False,
-                'quote': thought.quote,
-                'author': thought.author,
-            }
-        except KeyError:
-            response[subject] = {
-                'error': True,
-                'reason': 'This subject is too complicated to be resumed in one sentence.'
-            }
-
-    return web.json_response(response)
-
-
-app = web.Application()
-app.router.add_get('/', handle)
-
-
-# Setup access logging
-aiohttp_logger = logging.getLogger('aiohttp.access')
-aiohttp_logger.setLevel(logging.DEBUG)
-aiohttp_logger.addHandler(logging.StreamHandler())
-
-
-trace_app(app, tracer, service='thinker-microservice')
-app['datadog_trace']['distributed_tracing_enabled'] = True
-web.run_app(app, port=8000)
+@app.route('/')
+def think_microservice():
+    subject = flask_request.args.get('subject')
+    thoughts = think(subject)
+    return Response(thoughts, mimetype='application/json')
