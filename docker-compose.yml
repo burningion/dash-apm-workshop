@@ -1,14 +1,14 @@
 version: '3'
 services:
   agent:
-    image: "datadog/agent:latest"
+    image: "datadog/agent:6.2.1"
     environment:
       - DD_API_KEY
       - DD_APM_ENABLED=true
     ports:
       - "8126:8126"
   redis:
-    image: "redis:alpine"
+    image: "redis:4.0.10-alpine"
   web:
     environment:
       - FLASK_APP=api.py
