@@ -4,7 +4,9 @@ This repo contains microservices written in Python and Docker for an APM Worksho
 
 This repo builds upon the excellent work of [vlad-mh's PyCon UK talk](https://github.com/vlad-mh/pyconuk-2017) about APM, and the [dd-py-tracing-workshop](https://github.com/DataDog/dd-py-tracing-workshop) from [mstbbs](https://github.com/mstbbs).
 
-This repo is meant to be used alongside some Jupyter notebooks found [here](https://github.com/burningion/opentracing-notebook). You'll check out this repo, and run the docker containers here from within the Jupyter notebook.
+This repo is meant to be used alongside the Jupyter notebooks in this repo. 
+
+You'll check out this repo, run `jupyter notebook`, and run the docker containers here from within the Jupyter notebook.
 
 # Running the Examples
 
