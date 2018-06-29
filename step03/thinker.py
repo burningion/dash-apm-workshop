@@ -15,7 +15,7 @@ from time import sleep
 tracer.configure(hostname='agent')
 
 app = Flask('api')
-traced_app = TraceMiddleware(app, tracer, service='thinker-microservice')
+traced_app = TraceMiddleware(app, tracer, service='thinker-microservice', distributed_tracing=True)
 
 @tracer.wrap(name='think')
 def think(subject):
@@ -26,14 +26,7 @@ def think(subject):
 
 @app.route('/')
 def think_microservice():
-    # continue the span from the called service
-    trace_id = flask_request.headers.get("X-Datadog-Trace-Id")
-    parent_id = flask_request.headers.get("X-Datadog-Parent-Id")
-    if trace_id and parent_id:
-        span = tracer.current_span()
-        span.trace_id = int(trace_id)
-        span.parent_id = int(parent_id)
-
+    # because we have distributed tracing, don't need to manually grab headers
     subject = flask_request.args.get('subject')
     thoughts = think(subject)
     return Response(thoughts, mimetype='application/json')
