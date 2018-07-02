@@ -24,5 +24,5 @@ def think_handler():
         'x-datadog-parent-id': str(tracer.current_span().span_id),
     }, params={
         'subject': flask_request.args.getlist('subject', str),
-    }).content
+    }).text
     return Response(thoughts, mimetype='application/json')
