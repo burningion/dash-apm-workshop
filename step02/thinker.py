@@ -1,8 +1,6 @@
-import blinker as _
 import requests
 
-from flask import Flask, Response
-from flask import jsonify
+from flask import Flask, Response, jsonify
 from flask import request as flask_request
 
 from ddtrace import tracer
