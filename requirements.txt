@@ -17,8 +17,10 @@ jinja2==2.10              # via flask
 markupsafe==1.0           # via jinja2
 msgpack-python==0.5.6     # via ddtrace
 redis==2.10.6
+Flask-Cache==0.13.1
 requests==2.18.4
 sqlalchemy==1.2.7         # via flask-sqlalchemy
 urllib3==1.22             # via requests
 werkzeug==0.14.1          # via flask
 wrapt==1.10.11            # via ddtrace
+
