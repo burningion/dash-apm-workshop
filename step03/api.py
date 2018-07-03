@@ -3,7 +3,7 @@ import requests
 from flask import Flask, Response, jsonify
 from flask import request as flask_request
 
-from ddtrace import tracer, patch
+from ddtrace import tracer, patch, config
 from ddtrace.contrib.flask import TraceMiddleware
 
 
@@ -11,17 +11,17 @@ from ddtrace.contrib.flask import TraceMiddleware
 tracer.configure(hostname='agent')
 patch(requests=True)
 
+# enable distributed tracing for requests
+# to send headers (globally)
+config.requests['distributed_tracing'] = True
+
 app = Flask('api')
 traced_app = TraceMiddleware(app, tracer, service='thinker-api')
 
 
 @app.route('/think/')
 def think_handler():
-    # TODO: make this use config.requests['distributed_tracing'] = True instead
-    thoughts = requests.get('http://thinker:5001/', headers={
-        'x-datadog-trace-id': str(tracer.current_span().trace_id),
-        'x-datadog-parent-id': str(tracer.current_span().span_id),
-    }, params={
+    thoughts = requests.get('http://thinker:5001/', params={
         'subject': flask_request.args.getlist('subject', str),
     }).content
     return Response(thoughts, mimetype='application/json')
