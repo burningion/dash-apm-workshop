@@ -1,11 +1,11 @@
-import blinker as _
 import requests
 
 from flask import Flask, Response, jsonify
-from flask import jsonify
 from flask import request as flask_request
 
-from ddtrace import tracer
+from flask_caching import Cache
+
+from ddtrace import tracer, patch
 from ddtrace.contrib.flask import TraceMiddleware
 
 from bootstrap import create_app
@@ -13,13 +13,18 @@ from models import Thought
 
 from time import sleep
 
+patch(redis=True)
 app = create_app()
+cache = Cache(config={'CACHE_TYPE': 'redis', 'CACHE_REDIS_HOST': 'redis'})
+cache.init_app(app)
+
 traced_app = TraceMiddleware(app, tracer, service='thinker-microservice', distributed_tracing=True)
 
 # Tracer configuration
 tracer.configure(hostname='agent')
 
 @tracer.wrap(name='think')
+@cache.memoize(30)
 def think(subject):
     tracer.current_span().set_tag('subject', subject)
 
