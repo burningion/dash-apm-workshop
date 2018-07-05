@@ -30,7 +30,11 @@ def think(subject):
 
     sleep(0.5)
     quote = Thought.query.filter_by(subject=subject).first()
-    
+
+    if quote is None:
+        return Thought(quote='Hmmm, that\'s something I\'ll need to think about.',
+                       author='The Machine',
+                       subject=subject)
     return quote
 
 @app.route('/')
