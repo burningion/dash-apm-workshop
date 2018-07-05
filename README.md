@@ -19,6 +19,13 @@ Once you've got that running, you can then clone this repo, and from within the 
 Docker will download all the images necessary for you to run through the event. All of the Docker images are pinned, so they won't change.
 
 You'll be making for a better experience for everyone else. Thanks!
+
+# Event Flow
+
+We'll run through the first Jupyter notebook found [here](https://github.com/burningion/dash-apm-workshop/blob/master/APM%20Tracing%20Quickstart.ipynb), to familiarize ourselves with the concepts of tracing.
+
+After setting up our Datadog accounts and sending some traces, we'll then jump into [Distributed Tracing](https://github.com/burningion/dash-apm-workshop/blob/master/APM%20Tracing%20Quickstart.ipynb), and see how to send traces across services. We'll walk through instrumenting databases, microservices, and caching systems.
+
 # Running the Examples
 
 You'll need to first create a Datadog account, and then get your API key from the prompt. 
