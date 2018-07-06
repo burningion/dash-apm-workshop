@@ -8,7 +8,8 @@ from ddtrace.contrib.flask import TraceMiddleware
 
 
 # Tracer configuration
-tracer.configure(hostname='agent')
+# TODO: get this hooked up as DAEMON
+tracer.configure(hostname='localhost')
 patch(requests=True)
 
 # enable distributed tracing for requests
@@ -22,9 +23,10 @@ traced_app = TraceMiddleware(app, tracer, service='thinker-api')
 def hello():
     return Response({'hello': 'world'}, mimetype='application/json')
 
+
 @app.route('/think/')
 def think_handler():
-    thoughts = requests.get('http://thinker:5001/', params={
+    thoughts = requests.get('http://localhost:5001/', params={
         'subject': flask_request.args.getlist('subject', str),
     }).text
     return Response(thoughts, mimetype='application/json')
