@@ -15,13 +15,14 @@ from time import sleep
 
 patch(redis=True)
 app = create_app()
-cache = Cache(config={'CACHE_TYPE': 'redis', 'CACHE_REDIS_HOST': 'redis'})
+cache = Cache(config={'CACHE_TYPE': 'redis', 'CACHE_REDIS_HOST': 'localhost'})
 cache.init_app(app)
 
 traced_app = TraceMiddleware(app, tracer, service='thinker-microservice', distributed_tracing=True)
 
 # Tracer configuration
-tracer.configure(hostname='agent')
+# TODO: make this DAEMON
+tracer.configure(hostname='localhost')
 
 @tracer.wrap(name='think')
 @cache.memoize(30)
