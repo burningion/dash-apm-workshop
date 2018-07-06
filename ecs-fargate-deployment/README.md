@@ -1,6 +1,6 @@
 # Agent ECS Fargate Deployment (WIP)
 
-** THIS IS A WORK IN PROGRESS, AS A POTENTIAL BONUS TO THE WORKSHOP, DEPLOYING AN AGENT IN ECS / FARGATE **
+**THIS IS A WORK IN PROGRESS, AS A POTENTIAL BONUS TO THE WORKSHOP, DEPLOYING AN AGENT IN ECS / FARGATE**
 
 This tutorial assumes you've never set up a cluster on ECS Fargate before.
 
@@ -113,7 +113,6 @@ Next, we can do a `docker images`, and get a list of our images we've created:
 
 ```bash
 $ docker images
-stankley@stankley:~/Development/dash-apm-workshop/ecs-fargat-deployment$ docker images
 REPOSITORY                                      TAG                                       IMAGE ID            CREATED             SIZE
 dashapmworkshop_thinker                         latest                                    4080b18ca467        3 days ago          116MB
 dashapmworkshop_web                             latest                                    4080b18ca467        3 days ago          116MB
