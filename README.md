@@ -35,3 +35,14 @@ You'll then be able to start the example project with a:
 ```bash
 DD_API_KEY=<YOUR_API_KEY> STEP=1 docker-compose up
 ```
+
+# Feedback / Improvements for v2.0
+
+* Needs to begin with the features all implemented, show visually fully traced first.
+* Highlight automatic instrumentation first, THEN show manual instrumentation as customization
+* Use relevant language / real world use case more generally
+* First slide begins starts with "Wifi / Start downloading now"
+* Test / Verify on Windows
+* Add trace search traffic / examples
+* Creating errors to diagnose
+* More live coding
