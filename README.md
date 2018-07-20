@@ -46,3 +46,4 @@ DD_API_KEY=<YOUR_API_KEY> STEP=1 docker-compose up
 * Add trace search traffic / examples
 * Creating errors to diagnose
 * More live coding
+* Maybe incorporate some slides as done by http://container.training (Great work!)
