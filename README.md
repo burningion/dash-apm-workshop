@@ -26,7 +26,7 @@ We'll run through the first Jupyter notebook found [here](https://github.com/bur
 
 After setting up our Datadog accounts and sending some traces, we'll then jump into [Distributed Tracing](https://github.com/burningion/dash-apm-workshop/blob/master/APM%20Tracing%20Quickstart.ipynb), and see how to send traces across services. We'll walk through instrumenting databases, microservices, and caching systems.
 
-# Running the Examples
+# Running the Examples in MacOS / Linux
 
 You'll need to first create a Datadog account, and then get your API key from the prompt. 
 
@@ -35,3 +35,18 @@ You'll then be able to start the example project with a:
 ```bash
 DD_API_KEY=<YOUR_API_KEY> STEP=1 docker-compose up
 ```
+# Running the Examples in Windows
+
+In Windows, most things should _just work_ the same in Powershell, as long as you've got the latest version of Docker installed.
+
+One difference from MacOS / Linux is how environment variables are set to run the `docker-compose` commands.
+
+Open up a Powershell instance, and set your environment variables before starting the containers. You can do this with the following command:
+
+```powershell
+PS C:\Dev\dash-apm-workshop> $env:STEP=5
+PS C:\Dev\dash-apm-workshop> $env:DD_API_KEY=<YOUR_API_KEY>
+PS C:\Dev\dash-apm-workshop> docker-compose up
+```
+
+For each part of the lessons, just replace the setting of environment variables as above. Feel free to create a Github issue if you have any problems.
